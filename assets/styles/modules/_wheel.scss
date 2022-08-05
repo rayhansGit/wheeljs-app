@@ -1,0 +1,145 @@
+/* Sets the background image for the wheel */
+
+.the_wheel {
+    background-image: url(../images/wheel_back.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+
+/* Style applied to the spin button once a power has been selected */
+
+.clickable {
+    cursor: pointer;
+}
+
+
+/* Other misc styles */
+
+div.power_controls {
+    text-align: center;
+    margin-top: 24px;
+}
+
+button {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 48px;
+    width: 180px;
+    text-align: center;
+    font-size: 1rem;
+    background: transparent;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    &#startSpin {
+        background: green;
+        color: #fafafa;
+        &:hover {
+            background: rgb(122, 184, 122);
+        }
+    }
+    &#stopSpin {
+        color: #fafafa;
+        background: #b20000;
+        display: none;
+    }
+    &.btnGlow {
+        -webkit-animation: glowing 1000ms infinite;
+        animation: glowing 1000ms infinite;
+    }
+    &.btnFlat {
+        background: #ffffff !important;
+        color: #333333 !important;
+        cursor: wait;
+    }
+}
+
+@-webkit-keyframes glowing {
+    0% {
+        background-color: #b20000;
+        -webkit-box-shadow: 0 0 3px #b20000;
+    }
+    50% {
+        background-color: #ff0000;
+        -webkit-box-shadow: 0 0 20px #ff0000;
+    }
+    100% {
+        background-color: #b20000;
+        -webkit-box-shadow: 0 0 3px #b20000;
+    }
+}
+
+@keyframes glowing {
+    0% {
+        background-color: #b20000;
+        box-shadow: 0 0 3px #b20000;
+    }
+    50% {
+        background-color: #ff0000;
+        box-shadow: 0 0 24px #ff0000;
+    }
+    100% {
+        background-color: #b20000;
+        box-shadow: 0 0 3px #b20000;
+    }
+}
+
+// Border glow.
+.current-player {
+    -webkit-animation: border-glow 700ms infinite;
+    animation: border-glow 700ms infinite;
+}
+
+@-webkit-keyframes border-glow {
+    0% {
+        -webkit-box-shadow: 0 0 1px #00b235;
+    }
+    50% {
+        -webkit-box-shadow: 0 0 10px #13ca4a;
+    }
+    100% {
+        -webkit-box-shadow: 0 0 1px #00b235;
+    }
+}
+
+@keyframes border-glow {
+    0% {
+        box-shadow: 0 0 1px #00b235;
+    }
+    50% {
+        box-shadow: 0 0 10px #13ca4a;
+    }
+    100% {
+        box-shadow: 0 0 1px #00b235;
+    }
+}
+
+// Result container.
+#result_container {
+    border: 1px solid #eeeeee;
+    display: none;
+    font-size: 22px;
+}
+
+#result_player_one {
+    background-color: rgb(236, 236, 236);
+    line-height: 42px;
+}
+
+#result_player_two {
+    background-color: #cccccc;
+    line-height: 42px;
+}
+
+#final_result {
+    display: none;
+}
+
+.result_tie {
+    padding: 12px 0;
+}
