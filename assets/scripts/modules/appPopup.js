@@ -22,6 +22,7 @@ class AppPopUp {
 
     this.user_info = this.app_local_storage.getLocalStorageData(this.user_local_storage_key)
     console.log(this.user_info)
+
     if (this.user_info != null) {
       this.destoryPopUp()
     }
@@ -39,10 +40,7 @@ class AppPopUp {
     if (this.user_id.value.trim() != "") {
       var data = [
         {
-          game_id: "gg_2874764",
           user_id: this.user_id.value.trim(),
-          user_point: "0",
-          bot_point: "0",
         },
       ]
 

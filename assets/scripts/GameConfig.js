@@ -1,7 +1,17 @@
+import ApiResponse from "./modules/ApiResponse"
+import AppLocalStorage from "./modules/appLocalStorage"
+
 class GameConfig {
   // Initialize.
 
   constructor() {
+    // Initalize local storage.
+
+    this.app_local_storage = new AppLocalStorage()
+    this.user_local_storage_key = "spin_user_data"
+
+    this.game_id = Math.random().toString(36).slice(2)
+    this.user_id = ""
     this.wheelPower = 0
 
     this.wheelSpinning = false
@@ -159,17 +169,6 @@ class GameConfig {
   }
 
   /**
-   * Resets the wheel to a random position
-   * If you want to set the wheel to same position each time, add the angle value in range of 0-360
-   */
-  resetWheel() {
-    this.theWheel.stopAnimation(false)
-    this.theWheel.rotationAngle = Math.floor(Math.random() * 360)
-    this.theWheel.draw()
-    this.wheelSpinning = false
-  }
-
-  /**
    * Sets the result in the result div
    */
   alertPrize(indicatedSegment) {
@@ -198,6 +197,15 @@ class GameConfig {
       this.final_result.style.display = "block"
       this.btn_stop_spin.style.display = "none"
 
+      var save_game_data = new ApiResponse()
+
+      this.user_info = this.app_local_storage.getLocalStorageData(this.user_local_storage_key)
+      if (this.user_info != "undefined") {
+        this.user_id = this.user_info[0].user_id
+      }
+
+      save_game_data.create_data(this.game_id, this.user_id, botPoint, playerPoint)
+
       if (botPoint == playerPoint) {
         this.result_container.innerHTML = `<div class="result_tie">It's a Tie, Let's play again!</div>`
         setTimeout(() => {
@@ -215,6 +223,11 @@ class GameConfig {
 
       this.result_player_one.classList.remove("current-player")
       this.result_player_two.classList.remove("current-player")
+
+      //remove local storage info
+      if (botPoint != playerPoint) {
+        this.app_local_storage.removeLocalStorageData(this.user_local_storage_key)
+      }
     } else {
       // document.getElementById("result").append(this.title_player_two + "'s turn")
     }
@@ -222,7 +235,6 @@ class GameConfig {
 
   calculateDiscount() {
     var discount_amount = this.discount_player_one + (this.discount_player_one - this.discount_player_two) / 2
-
     return discount_amount + "%"
   }
 
